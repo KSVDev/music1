@@ -1,0 +1,26 @@
+<html>
+
+<body>
+    <div>
+        <form method="post">
+            <input type="text" name="song" placeholder="Input song"/>
+            <input type="text" name="style" placeholder="Input style"/>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+    <div>Music list</div>
+    <form method="post" action="filter">
+        <input type="text" name="filter"/>
+        <button type="submit">Find</button>
+    </form>
+    {{#musics}}
+        <div>
+            <b>{{id}}</b>
+            <span>{{song}}</span>
+            <i>{{style}}</i>
+        </div>
+    {{/musics}}
+
+</body>
+
+</html>

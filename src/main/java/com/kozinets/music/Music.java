@@ -9,19 +9,30 @@ import javax.persistence.Id;
 public class Music {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer Id;
+    private Integer id;
 
     private String song;
+    private String style;
 
-    public Music(String song) {
+    public Music(){}
+    public Music(String song, String style) {
         this.song = song;
+        this.style = style;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
     public void setId(Integer id) {
-        Id = id;
+        id = id;
     }
 
     public String getSong() {
