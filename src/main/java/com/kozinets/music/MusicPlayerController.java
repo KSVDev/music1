@@ -13,8 +13,8 @@ public class MusicPlayerController {
         @Autowired
         private MusicRepository musicRepository;
 
-        @PostMapping(path="/add") // Map ONLY POST Requests
-        public @ResponseBody String addNewMusic (@RequestParam String song, @RequestParam String style, Map<String, Object> model) {
+        @PostMapping
+        public @ResponseBody String add (@RequestParam String song, @RequestParam String style, Map<String, Object> model) {
             Music music = new Music(song, style);
             musicRepository.save(music);
 
@@ -24,18 +24,29 @@ public class MusicPlayerController {
             return "Saved";
         }
 
+        @GetMapping
+        public String main(Map<String, Object> model){
+            Iterable<Music> musics = musicRepository.findAll();
+            model.put("musics", musics);
+
+            return "main";
+        }
+
         @GetMapping(path="/all")
         public @ResponseBody Iterable<Music> getAllUsers() {
-            // This returns a JSON or XML with the users
+            // This returns a JSON or XML with the musics
             return musicRepository.findAll();
         }
 
         @PostMapping("/filter")
-        public String filter(@RequestParam String song, Map<String, Object> model){
-
-            List<Music> musics = musicRepository.findBySong(song);
+        public String find(@RequestParam String filter, Map<String, Object> model){
+            Iterable<Music> musics;
+            if(filter != null && !filter.isEmpty()) {
+                musics = musicRepository.findBySong(filter);
+            }else{
+                musics = musicRepository.findAll();
+            }
             model.put("musics", musics);
-
             return "main";
         }
 }
