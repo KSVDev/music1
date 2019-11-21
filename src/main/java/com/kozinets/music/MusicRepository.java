@@ -1,4 +1,4 @@
-package com.example.accessingdatamysql;
+package com.kozinets.music;
 
 import com.kozinets.music.Music;
 import org.springframework.data.repository.CrudRepository;
