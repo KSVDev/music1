@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: oroot
+      MYSQL_DATABASE: music
+      MYSQL_USER: mususer
+      MYSQL_PASSWORD: oroot
+      MYSQL_USER: sergey
+      MYSQL_PASSWORD: sergey
+    restart: always
+  app:
+    build: .
+    container_name: application
+    ports:
+      - 8080:8080
+    restart: always
+    links:
+      - db

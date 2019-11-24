@@ -33,7 +33,7 @@ public class MusicPlayerController {
         }
 
         @GetMapping(path="/all")
-        public @ResponseBody Iterable<Music> getAllUsers() {
+        public @ResponseBody Iterable<Music> getAllMusics() {
             // This returns a JSON or XML with the musics
             return musicRepository.findAll();
         }
