@@ -8,8 +8,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: oroot
       MYSQL_DATABASE: music
-      MYSQL_USER: root
-      MYSQL_PASSWORD: oroot
+      #MYSQL_USER: root
+      #MYSQL_PASSWORD: oroot
     #restart: always
   app:
     image: music
