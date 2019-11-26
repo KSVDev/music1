@@ -2,3 +2,4 @@
 FROM mysql
 # Add a database
 ENV MYSQL_DATABASE=music
+ENV MYSQL_ROOT_PASSWORD=oroot
