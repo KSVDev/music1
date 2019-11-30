@@ -1,33 +1,42 @@
 version: '2'
 services:
-  mysql_db:
-    image: mysql
-    container_name: mysql_db
+  db:
+    #image: mysql
+    #container_name: my
+    #network_mode: bridge
+    #ports:
+    #  - 3308:3306
+    #environment:
+    #  MYSQL_ROOT_PASSWORD: oroot
+    #  MYSQL_DATABASE: music
+    #  MYSQL_USER: mususer
+    #  MYSQL_PASSWORD: oroot
+
+    image: postgres:12.1
+    container_name: pg
+    #network_mode: bridge
     ports:
-      - 3308:3306
+      - 5434:5432
     environment:
-      MYSQL_ROOT_PASSWORD: oroot
-      MYSQL_DATABASE: music
-      #MYSQL_USER: root
-      #MYSQL_PASSWORD: oroot
-    #restart: always
+      - POSTGRES_DB=music
+      - POSTGRES_USER=mususer
+      - POSTGRES_PASSWORD=oroot
+    restart: always
   app:
-    image: music
-    container_name: application
+    build: .
+    container_name: app
+    #network_mode: bridge
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql_db:3308/music
-      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/music
+    #  - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/music
+      - SPRING_DATASOURCE_ROOT_PASSWORD=oroot
+      - SPRING_DATASOURCE_DATABASE=music
+      - SPRING_DATASOURCE_USERNAME=mususer
       - SPRING_DATASOURCE_PASSWORD=oroot
-      - logging.level.org.springframework.web=DEBUG
-      - logging.level.org.hibernate=DEBUG
-      - logging.level.root=DEBUG
-      - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-      - spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
     ports:
-      - 8080:8080
-    #build:
-    #  context: src\main\java
-    #  dockerfile: Dockerfile
+      - 8090:8080
     #restart: always
     depends_on:
-      - mysql_db
+      - db
+    links:
+      - db
